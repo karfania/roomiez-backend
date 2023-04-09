@@ -9,7 +9,7 @@ public class Task{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(name = "task_seq", sequenceName = "task_seq", allocationSize = 1)
 
-    private int ID;
+    private int taskID;
     private int assigneeID;
     private int groupID;
     private String name;
@@ -21,8 +21,8 @@ public class Task{
     private String description;
 
     // Constructor
-    public Task(int ID, int assigneeID, int groupID, String name, String startDate, String endDate, String startTime, String endTime, Progress progress, String description) {
-        this.ID = ID;
+    public Task(int taskID, int assigneeID, int groupID, String name, String startDate, String endDate, String startTime, String endTime, Progress progress, String description) {
+        this.taskID = taskID;
         this.assigneeID = assigneeID;
         this.groupID = groupID;
         this.name = name;
@@ -37,11 +37,11 @@ public class Task{
     // Getters and setters for data members
 
     public int getID() {
-        return ID;
+        return taskID;
     }
 
     public void setID(int ID) {
-        this.ID = ID;
+        this.taskID = ID;
     }
     public int getAssigneeID() {
         return assigneeID;

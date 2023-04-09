@@ -48,16 +48,16 @@ public class TaskService {
         return getTaskById(taskID);
     }
 
-    public void deleteTaskByID(int ID){
-        taskRepository.deleteById(ID);
+    public boolean deleteTaskByID(int ID){
+        try {
+            taskRepository.deleteById(ID);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     public void deleteTask(Task task){
         taskRepository.delete(task);
     }
-    public String hello(){
-        return "hello";
-    }
-
-    //Create a new task and add it to the database
 }
