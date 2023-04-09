@@ -1,6 +1,14 @@
 package com.web.roomiez.Task;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "TaskTable")
 public class Task{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "task_seq", sequenceName = "task_seq", allocationSize = 1)
+
     private int ID;
     private int assigneeID;
     private int groupID;
