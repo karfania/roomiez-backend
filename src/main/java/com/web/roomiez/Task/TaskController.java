@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
-
-    private TaskService taskService;
     @Autowired
+    private TaskService taskService;
+
     public TaskController(TaskService taskService){
         this.taskService = taskService;
     }
@@ -52,12 +52,22 @@ public class TaskController {
         return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 
+    @PutMapping("/endTime/{taskId}")
+    public ResponseEntity<Task> updateTaskEndTime(@PathVariable("taskId") int taskId, @RequestBody String endTime) throws ChangeSetPersister.NotFoundException {
+        Task updatedTask = taskService.updateTaskEndTime(taskId, endTime);
+        if (updatedTask == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+    }
 
-//    @GetMapping
-//    public String hello(){
-//        return "hello";
-//    }
-
-
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<Void> deleteTaskByID(@PathVariable("taskId") int taskId) {
+        boolean deleted = taskService.deleteTaskByID(taskId);
+        if (!deleted) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

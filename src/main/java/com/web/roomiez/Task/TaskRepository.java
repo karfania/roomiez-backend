@@ -10,15 +10,15 @@ import org.springframework.stereotype.Repository;
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     @Modifying
-    @Query("UPDATE Task t SET t.progress = :progress WHERE t.id = :id")
+    @Query("UPDATE Task t SET t.progress = :progress WHERE t.taskID = :id")
     void updateTaskProgress(@Param("id") int id,  @Param("progress") int progress);
 
     @Modifying
-    @Query("UPDATE TASK t SET t.endDate = :endDate WHERE t.id = :id")
+    @Query("UPDATE TASK t SET t.endDate = :endDate WHERE t.taskID = :id")
     void updateTaskEndDate(@Param("id") int id,  @Param("endDate") String endDate);
 
     @Modifying
-    @Query("UPDATE TASK t SET t.endTime = :endTime WHERE t.id = :id")
+    @Query("UPDATE TASK t SET t.endTime = :endTime WHERE t.taskID = :id")
     void updateTaskEndTime(@Param("id") int id,  @Param("endTime") String endTime);
 
 }
