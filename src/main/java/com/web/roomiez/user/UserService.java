@@ -1,11 +1,22 @@
 package com.web.roomiez.user;
 
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface UserService {
     public User saveUser(User user);
     public List<User> getAllUsers();
+
+    public User findByUserID(int userID) throws ChangeSetPersister.NotFoundException;
+
+    //method to create new user
+    public void register(int ID, int groupID, String name, String username, String password);
+
+    //update user parameters
+    public void update(User user);
+
 }
