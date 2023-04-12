@@ -6,9 +6,11 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+// DEPENDENCY INJECTION + BEAN INSTANTIATION
 @Configuration
 public class GroupConfig {
 
+    // populating with some example groups
     @Bean
     CommandLineRunner commandLineRunner(GroupRepository groupRepository) {
         return args -> {

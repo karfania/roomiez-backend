@@ -1,7 +1,7 @@
 package com.web.roomiez.group;
 
-import com.web.roomiez.Task.Task;
-import com.web.roomiez.user.User;
+//import com.web.roomiez.Task.Task;
+//import com.web.roomiez.user.User;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -10,25 +10,18 @@ import java.util.ArrayList;
 @Table(name = "GroupTable")
 public class Group {
     @Id
-    @SequenceGenerator(
-            name = "group_sequence",
-            sequenceName = "group_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
     private int groupID;
     private String groupName;
+//    @Transient
+//    private ArrayList<User> usersInGroup;
+//    private ArrayList<Task> groupTasks;
 
-    private ArrayList<User> usersInGroup;
-    private ArrayList<Task> groupTasks;
 
-
-    // constructor with pre-determined groupID
-    public Group(int groupID, String groupName) {
-        this.groupID = groupID;
-        this.groupName = groupName;
+    // default constructor
+    public Group() {
     }
 
     // constructor assuming MySQL-generated ID
@@ -36,7 +29,13 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public long getGroupID() {
+    // constructor with pre-determined groupID
+    public Group(int groupID, String groupName) {
+        this.groupID = groupID;
+        this.groupName = groupName;
+    }
+
+    public int getGroupID() {
         return groupID;
     }
 
@@ -52,19 +51,26 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public ArrayList<User> getUsersInGroup() {
-        return usersInGroup;
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupID=" + groupID +
+                ", groupName='" + groupName + '\'' +
+                '}';
     }
-
-    public void setUsersInGroup(ArrayList<User> usersInGroup) {
-        this.usersInGroup = usersInGroup;
-    }
-
-    public ArrayList<Task> getGroupTasks() {
-        return groupTasks;
-    }
-
-    public void setGroupTasks(ArrayList<Task> groupTasks) {
-        this.groupTasks = groupTasks;
-    }
+//    public ArrayList<User> getUsersInGroup() {
+//        return usersInGroup;
+//    }
+//
+//    public void setUsersInGroup(ArrayList<User> usersInGroup) {
+//        this.usersInGroup = usersInGroup;
+//    }
+//
+//    public ArrayList<Task> getGroupTasks() {
+//        return groupTasks;
+//    }
+//
+//    public void setGroupTasks(ArrayList<Task> groupTasks) {
+//        this.groupTasks = groupTasks;
+//    }
 }
