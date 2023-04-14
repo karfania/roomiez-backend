@@ -13,4 +13,8 @@ public class loginController {
     public String admin() {
         return "this is Admin page";
     }
+
+
+    //TODO: mapping for login page
 }
+

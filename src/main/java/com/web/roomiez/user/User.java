@@ -20,17 +20,21 @@ public class User {
     //private ArrayList<Task> tasks;
     //private Boolean completedCurrentTasks;
 
+    private Boolean locked = false;
+    private Boolean enabled = false;
+
     //Constructor
     public User() {
 
     }
 
-
     @Override
     public String toString() {
         return "User{" +
                 "ID=" + ID +
-                ", userName='" + username + '\'' +
+                ", groupID=" + groupID +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
@@ -93,6 +97,21 @@ public class User {
 //    }
 
 
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
 
 

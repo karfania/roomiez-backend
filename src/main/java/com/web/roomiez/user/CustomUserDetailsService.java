@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
+    private final static String USER_NOT_FOUND_MSG = "user with username %s not found";
     @Autowired
     private UserRepository userRepository;
 
@@ -16,8 +17,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         User user = userRepository.findByUsername(username);
         if (user == null){
-            throw new UsernameNotFoundException("User Not Found");
+            throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, username));
         }
         return new CustomUserDetails(user);
+    }
+
+    public int enableAppUser(String username){
+        return userRepository.enableUser(username);
     }
 }

@@ -13,8 +13,10 @@ public interface UserService {
 
     public User findByUserID(int userID) throws ChangeSetPersister.NotFoundException;
 
+    public User findByUsername(String username);
+
     //method to create new user
-    public void register(int ID, int groupID, String name, String username, String password);
+    public String register(User user);
 
     //update user parameters
     public void update(User user);
