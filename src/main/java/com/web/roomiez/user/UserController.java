@@ -91,4 +91,9 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/update")
+    public List<User> update(){
+        userService.deleteGroupID(1);
+        return userService.getAllUsers();
+    }
 }
