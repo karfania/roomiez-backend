@@ -18,7 +18,7 @@ public interface UserService {
     //method to create new user
     public String register(User user);
 
-    //update user parameters
-    public void update(User user);
+//    //update user parameters
+//    public void update(User user);
 
 }

@@ -1,10 +1,9 @@
 package com.web.roomiez.group;
 
-//import com.web.roomiez.Task.Task;
-//import com.web.roomiez.user.User;
+import com.web.roomiez.Task.Task;
+import com.web.roomiez.user.User;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "GroupTable")
@@ -15,9 +14,9 @@ public class Group {
     )
     private int groupID;
     private String groupName;
-//    @Transient
-//    private ArrayList<User> usersInGroup;
-//    private ArrayList<Task> groupTasks;
+    @Transient
+    private List<User> usersInGroup;
+    //private List<Task> groupTasks;
 
 
     // default constructor
@@ -58,19 +57,19 @@ public class Group {
                 ", groupName='" + groupName + '\'' +
                 '}';
     }
-//    public ArrayList<User> getUsersInGroup() {
-//        return usersInGroup;
-//    }
-//
-//    public void setUsersInGroup(ArrayList<User> usersInGroup) {
-//        this.usersInGroup = usersInGroup;
-//    }
-//
-//    public ArrayList<Task> getGroupTasks() {
+    public List<User> getUsersInGroup() {
+        return usersInGroup;
+    }
+
+    public void setUsersInGroup(List<User> usersInGroup) {
+        this.usersInGroup = usersInGroup;
+    }
+
+//    public List<Task> getGroupTasks() {
 //        return groupTasks;
 //    }
 //
-//    public void setGroupTasks(ArrayList<Task> groupTasks) {
+//    public void setGroupTasks(List<Task> groupTasks) {
 //        this.groupTasks = groupTasks;
 //    }
 }
