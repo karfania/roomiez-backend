@@ -87,6 +87,11 @@ See https://github.com/GoogleCloudPlatform/cloud-opensource-java/wiki/The-Google
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-bigquery</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
+			<version>1.1.4.RELEASE</version>
+		</dependency>
 
 	</dependencies>
 
@@ -126,7 +131,7 @@ See https://github.com/GoogleCloudPlatform/cloud-opensource-java/wiki/The-Google
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
-				<version>3.0.5</version>
+				<version>2.4.4</version>
 				<configuration>
 					<version>1</version>
 					<projectId>GCLOUD_CONFIG</projectId>
