@@ -7,7 +7,7 @@ import jdk.jfr.DataAmount;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "user_table")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
