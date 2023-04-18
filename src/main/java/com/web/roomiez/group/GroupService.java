@@ -1,5 +1,12 @@
 package com.web.roomiez.group;
 
+import com.web.roomiez.Task.Task;
+import com.web.roomiez.Task.TaskRepository;
+import com.web.roomiez.Task.TaskService;
+import com.web.roomiez.user.User;
+import com.web.roomiez.user.UserRepository;
+import com.web.roomiez.user.UserService;
+import org.hibernate.service.NullServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -19,6 +26,18 @@ public class GroupService {
     {
         this.groupRepository = groupRepository;
     }
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private TaskRepository taskRepository;
+
+//    @Autowired
+//    private Group group;
+//
+//    @Autowired
+//    private Task task;
 
     // return list of all groups in our database
     public List<Group> getGroups()
@@ -67,6 +86,7 @@ public class GroupService {
         }
         //otherwise, save the student
         groupRepository.save(group);
+
     }
 
     // update group name if it exists
@@ -83,6 +103,46 @@ public class GroupService {
         else
         {
             throw new IllegalStateException("Group " + groupID + " could not be found.");
+        }
+    }
+
+    // get users in group with group ID
+    public List<User> getUsersInGroup(int groupID) throws Exception
+    {
+        List<User> usersInGroup = userRepository.findUsersInGroup(groupID);
+        // if we receive null, it means we have an error in access
+        if (usersInGroup == null)
+        {
+            throw new Exception("No users in group with groupID: " + groupID + ".");
+        }
+
+       // group.setUsersInGroup(usersInGroup);
+        return usersInGroup;
+    }
+
+//    // get tasks assigned to a group
+//    public List<Task> getGroupTasks(int groupID) throws Exception
+//    {
+//        List<Task> groupTasks = taskRepository.findGroupTasks(groupID);
+//        // if we receive null, it means we have an error in access
+//        if (groupTasks == null) {
+//            throw new Exception("No users in group with groupID: " + groupID + ".");
+//        }
+//        group.setGroupTasks(groupTasks);
+//        return groupTasks;
+//    }
+
+    // deleting group
+    public boolean deleteGroupByID(int groupID)
+    {
+        try
+        {
+            groupRepository.deleteGroupByID(groupID);
+            return true;
+        } catch (Exception e)
+        {
+            // if there is an issue, we didn't remove the group
+            return false;
         }
     }
 }
