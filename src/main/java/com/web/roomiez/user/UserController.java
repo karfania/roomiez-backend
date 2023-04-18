@@ -73,6 +73,12 @@ public class UserController {
         return confirmationTokenService.confirmToken(token);
     }
 
+    @GetMapping("/{username}")
+    public ResponseEntity<Integer> IDbyUser(@PathVariable String username){
+        Integer id = userService.IDbyUser(username);
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
     //TODO: mapping for login page?
 
 

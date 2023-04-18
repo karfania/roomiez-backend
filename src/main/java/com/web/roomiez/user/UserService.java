@@ -21,4 +21,6 @@ public interface UserService {
     //update user parameters
     public void deleteGroupID(int groupID);
 
+    public int IDbyUser(String username);
+
 }
