@@ -11,19 +11,32 @@ public class Task{
 
     private int taskID;
     private int assigneeID;
+    private String assigneeName;
+
     private int groupID;
+
     private String name;
     private String startDate; //Ask if this data type will be fine
     private String endDate;
     private String startTime; //TODO establish format of startDate and startTime
     private String endTime;
-    private Progress progress;
+    private int progress;
     private String description;
 
+    // Default Constructor
+    public Task(){
+
+    }
+
+    public Task(int taskID){
+        this.taskID = taskID;
+    }
+
     // Constructor
-    public Task(int taskID, int assigneeID, int groupID, String name, String startDate, String endDate, String startTime, String endTime, Progress progress, String description) {
+    public Task(int taskID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description) {
         this.taskID = taskID;
         this.assigneeID = assigneeID;
+        this.assigneeName = assigneeName;
         this.groupID = groupID;
         this.name = name;
         this.startDate = startDate;
@@ -51,6 +64,11 @@ public class Task{
         this.assigneeID = assigneeID;
     }
 
+    public String getAssigneeName() { return assigneeName; }
+
+    public void setAssigneeName(String assigneeName){
+        this.assigneeName = assigneeName;
+    }
     public int getGroupID() {
         return groupID;
     }
@@ -99,11 +117,11 @@ public class Task{
         this.endTime = endTime;
     }
 
-    public Progress getProgress() {
+    public int getProgress() {
         return progress;
     }
 
-    public void setProgress(Progress progress) {
+    public void setProgress(int progress) {
         this.progress = progress;
     }
 
@@ -125,7 +143,7 @@ public class Task{
         // Implementation for deleting a task from the database
     }
 
-    public void updateTask(Progress newProgress, int newAssigneeID) {
+    public void updateTask(int newProgress, int newAssigneeID) {
         // Implementation for updating a task's progress and/or assigned user
         setProgress(newProgress);
         setAssigneeID(newAssigneeID);
