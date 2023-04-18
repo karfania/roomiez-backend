@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 //THIS CLASS DEFINES FUNCTIONS
@@ -11,6 +12,8 @@ import java.util.Optional;
 public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
+
+    public List<Task> getTasks() {return taskRepository.findAll();}
 
     public Task addTask(Task task) {
         taskRepository.save(task);
@@ -27,14 +30,14 @@ public class TaskService {
         }
     }
 
-    public void createTask(int ID, int assigneeID, int groupID, String name, String startDate, String endDate, String startTime, String endTime,
-                           Progress progress, String description){
-        Task task = new Task(ID, assigneeID, groupID, name, startDate, endDate, startTime, endTime, progress, description);
+    public void createTask(int ID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime,
+                           int progress, String description){
+        Task task = new Task(ID, assigneeID, assigneeName, groupID, name, startDate, endDate, startTime, endTime, progress, description);
         taskRepository.save(task);
     }
 
-    public Task updateTaskProgress(int taskID, Progress progress) throws NotFoundException {
-        taskRepository.updateTaskProgress(taskID, progress.getValue());
+    public Task updateTaskProgress(int taskID, int progress) throws NotFoundException {
+        taskRepository.updateTaskProgress(taskID, progress);
         return getTaskById(taskID);
     }
 

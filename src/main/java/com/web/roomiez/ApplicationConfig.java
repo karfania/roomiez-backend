@@ -62,18 +62,21 @@ public class ApplicationConfig {
                     List.of(u1, u2, u3)
             );
 
-//            Task t1 = new Task(
-//                    1,
-//                    1,
-//                    3,
-//                    "Task 1",
-//                    "01/01/1970",
-//                    "01/02/1970",
-//                    "2:00pm",
-//                    "5:00pm",
-//                    0,
-//                    "This is a dummy task."
-//            );
+            Task t1 = new Task(
+                    1,
+                    1,
+                    "Bob",
+                    3,
+                    "Task 1",
+                    "01/01/1970",
+                    "01/02/1970",
+                    "2:00pm",
+                    "5:00pm",
+                    0,
+                    "This is a dummy task."
+            );
+
+            taskRepository.save(t1);
         };
     }
 }
