@@ -19,6 +19,6 @@ public interface UserService {
     public String register(User user);
 
     //update user parameters
-    public void update(User user);
+    public void deleteGroupID(int groupID);
 
 }
