@@ -15,6 +15,10 @@ public class loginController {
     }
 
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
     //TODO: mapping for login page
 }
 

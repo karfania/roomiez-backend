@@ -23,4 +23,7 @@ public interface UserService {
     public void deleteGroupID(int groupID);
 
 
+    public int IDbyUser(String username);
+
+
 }

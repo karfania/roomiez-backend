@@ -69,6 +69,11 @@ public class UserServiceImplementation implements UserService {
 
     }
 
+    @Override
+    public int IDbyUser(String username) {
+        return userRepository.findByUsername(username).getID();
+    }
+
 
     @Override
     public User findByUserID(int userID) throws ChangeSetPersister.NotFoundException {

@@ -40,7 +40,10 @@ public class WebSecurityConfiguration {
                 .requestMatchers("/user/registration").permitAll()
                 .requestMatchers("/user/registration/**").permitAll()
                 .anyRequest().authenticated().and()
-                .formLogin();
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll());
+
 
 //                //.csrf((csrf) -> csrf.ignoringRequestMatchers("/**") )
 //                .authorizeHttpRequests((authz) -> authz
