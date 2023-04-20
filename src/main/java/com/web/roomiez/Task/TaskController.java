@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -38,6 +39,23 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<Task> addTask(@RequestBody Task task) {
+        String repeat = task.getRepeat();
+        LocalDate currentDate = LocalDate.now();
+
+        task.setStartDate(currentDate.toString());
+        LocalDate incrementedDate = null;
+        if(repeat.equals("daily")){
+             incrementedDate = currentDate.plusDays(1);
+        }
+        else if(repeat.equals("weekly")){
+            incrementedDate = currentDate.plusDays(7);
+        }
+        else if(repeat.equals("monthly")){
+            incrementedDate = currentDate.plusMonths(1);
+        }
+        if(incrementedDate != null) {
+            task.setEndDate(incrementedDate.toString());
+        }
         Task createdTask = taskService.addTask(task);
         if (createdTask == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -31,8 +31,8 @@ public class TaskService {
     }
 
     public void createTask(int ID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime,
-                           int progress, String description){
-        Task task = new Task(ID, assigneeID, assigneeName, groupID, name, startDate, endDate, startTime, endTime, progress, description);
+                           int progress, String description, String repeat){
+        Task task = new Task(ID, assigneeID, assigneeName, groupID, name, startDate, endDate, startTime, endTime, progress, description, repeat);
         taskRepository.save(task);
     }
 

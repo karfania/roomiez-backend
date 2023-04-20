@@ -23,6 +23,8 @@ public class Task{
     private int progress;
     private String description;
 
+    private String repeatTask;
+
     // Default Constructor
     public Task(){
 
@@ -33,7 +35,8 @@ public class Task{
     }
 
     // Constructor
-    public Task(int taskID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description) {
+    public Task(int taskID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description,
+    String repeatTask) {
         this.taskID = taskID;
         this.assigneeID = assigneeID;
         this.assigneeName = assigneeName;
@@ -45,6 +48,7 @@ public class Task{
         this.endTime = endTime;
         this.progress = progress;
         this.description = description;
+        this.repeatTask = repeatTask;
     }
 
     // Getters and setters for data members
@@ -132,6 +136,12 @@ public class Task{
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getRepeat() {return repeatTask;}
+
+    public void setRepeat(String repeat) {this.repeatTask = repeat;}
+
+
 
     // Methods for task management
 
