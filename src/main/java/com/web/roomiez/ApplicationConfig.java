@@ -73,7 +73,8 @@ public class ApplicationConfig {
                     "2:00pm",
                     "5:00pm",
                     0,
-                    "This is a dummy task."
+                    "This is a dummy task.",
+                    "weekly"
             );
 
             taskRepository.save(t1);
