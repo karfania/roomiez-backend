@@ -19,6 +19,7 @@ import java.util.UUID;
 //Handles Get/post
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 //TODO: add @CrossOrigins annotation to all controllers to interact with react app
 public class UserController {
     @Autowired
@@ -73,7 +74,7 @@ public class UserController {
         return confirmationTokenService.confirmToken(token);
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/getId/{username}")
     public ResponseEntity<Integer> IDbyUser(@PathVariable String username){
         Integer id = userService.IDbyUser(username);
         return new ResponseEntity<>(id, HttpStatus.OK);
