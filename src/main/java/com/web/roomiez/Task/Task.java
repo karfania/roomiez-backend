@@ -32,7 +32,6 @@ public class Task{
     private String endTime;
     private int progress;
     private String description;
-
     private String repeatTask;
 
     // Default Constructor

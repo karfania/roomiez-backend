@@ -14,13 +14,13 @@ public class Group {
     )
     private int groupID;
     private String groupName;
-    @Transient
-    @OneToMany(targetEntity = com.web.roomiez.user.User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> usersInGroup;
-
-    @Transient
-    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Task> groupTasks;
+//    @Transient
+//    @OneToMany(targetEntity = com.web.roomiez.user.User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<User> usersInGroup;
+//
+//    @Transient
+//    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Task> groupTasks;
 
 
     // default constructor
