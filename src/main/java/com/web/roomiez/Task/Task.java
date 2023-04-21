@@ -140,9 +140,6 @@ public class Task{
     public String getRepeat() {return repeatTask;}
 
     public void setRepeat(String repeat) {this.repeatTask = repeat;}
-
-
-
     // Methods for task management
 
     public void createTask() {

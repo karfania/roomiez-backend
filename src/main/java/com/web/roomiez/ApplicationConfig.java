@@ -77,7 +77,25 @@ public class ApplicationConfig {
                     "weekly"
             );
 
-            taskRepository.save(t1);
+            //Create a task with only parameters that are received from the frontend
+            Task t2 = new Task(
+                    2,
+                    1,
+                    "Bob",
+                    -1,
+                    "Task 2",
+                    "",
+                    "",
+                    "",
+                    "",
+                    0,
+                    "Testing frontend task creation",
+                    "daily"
+            );
+
+            taskRepository.saveAll(
+                    List.of(t1, t2)
+            );
         };
     }
 }

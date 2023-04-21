@@ -31,8 +31,8 @@ public class TaskService {
     }
 
     public void createTask(int ID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime,
-                           int progress, String description, String repeat){
-        Task task = new Task(ID, assigneeID, assigneeName, groupID, name, startDate, endDate, startTime, endTime, progress, description, repeat);
+                           int progress, String description, String repeatTask){
+        Task task = new Task(ID, assigneeID, assigneeName, groupID, name, startDate, endDate, startTime, endTime, progress, description, repeatTask);
         taskRepository.save(task);
     }
 
@@ -58,6 +58,16 @@ public class TaskService {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    //Get task repeat with task ID
+//    public String getTaskRepeatWithTaskID(int taskID){
+//        return taskRepository.getTaskRepeatWithTaskID(taskID);
+//    }
+
+    //Get group ID with username
+    public int getGroupIDWithUsername(String username){
+        return taskRepository.getGroupIDWithUsername(username);
     }
 
     public void deleteTask(Task task){
