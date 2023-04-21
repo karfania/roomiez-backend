@@ -72,7 +72,8 @@ public class ApplicationConfig {
                     "2:00pm",
                     "5:00pm",
                     0,
-                    "This is a dummy task."
+                    "This is a dummy task.",
+                    "weekly"
             );
 
             Task t2 = new Task(
@@ -85,7 +86,8 @@ public class ApplicationConfig {
                     "2:00pm",
                     "5:00pm",
                     1,
-                    "This is a dummy task."
+                    "This is a dummy task.",
+                    "weekly"
             );
 
             Task t3 = new Task(
@@ -98,7 +100,8 @@ public class ApplicationConfig {
                     "2:00pm",
                     "5:00pm",
                     0,
-                    "This is a dummy task."
+                    "This is a dummy task.",
+                    "weekly"
             );
 
             Task t4 = new Task(
@@ -111,7 +114,8 @@ public class ApplicationConfig {
                     "2:00pm",
                     "5:00pm",
                     0,
-                    "This is a dummy task."
+                    "This is a dummy task.",
+                    "weekly"
             );
 
             taskRepository.saveAll(

@@ -23,6 +23,7 @@ import java.util.List;
 // API LAYER
 @RestController
 @RequestMapping(path="/groups")
+@CrossOrigin
 public class GroupController {
 
     private final GroupService groupService;

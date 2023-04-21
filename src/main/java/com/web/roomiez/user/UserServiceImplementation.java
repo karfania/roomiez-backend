@@ -10,9 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -59,11 +57,21 @@ public class UserServiceImplementation implements UserService {
 //        System.out.println(user.getID());
         return token;
     }
-//
-//    @Override
-//    public void update(User user) {
-//
-//    }
+
+    @Override
+    public void deleteGroupID(int groupID) {
+       Collection<User> collection = userRepository.findByGroupID(groupID);
+       Iterator<User> it = collection.iterator();
+       while (it.hasNext()){
+           it.next().setGroupID(0);
+       }
+    }
+
+    @Override
+    public int IDbyUser(String username) {
+        return userRepository.findByUsername(username).getID();
+    }
+
     @Override
     public User findByUserID(int userID) throws ChangeSetPersister.NotFoundException {
         Optional<User> optionalUser = userRepository.findById(userID);
@@ -148,7 +156,4 @@ public class UserServiceImplementation implements UserService {
                 "\n" +
                 "</div></div>";
     }
-
-
 }
-

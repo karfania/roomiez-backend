@@ -12,8 +12,8 @@ public class Task{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SequenceGenerator(name = "task_seq", sequenceName = "task_seq", allocationSize = 1)
-
     private int taskID;
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="assigneeID", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -23,7 +23,8 @@ public class Task{
     @JoinColumn(name="groupID", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Group group;
-
+    
+    private String assigneeName;
     private String name;
     private String startDate; //Ask if this data type will be fine
     private String endDate;
@@ -32,15 +33,24 @@ public class Task{
     private int progress;
     private String description;
 
-    // default constructor
-    public Task() {
+    private String repeatTask;
+
+    // Default Constructor
+    public Task(){
+
+    }
+
+    public Task(int taskID){
+        this.taskID = taskID;
     }
 
     // Constructor
-    public Task(int taskID, User user, Group group, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description) {
+    public Task(int taskID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description,
+    String repeatTask) {
         this.taskID = taskID;
-        this.user = user;
-        this.group = group;
+        this.assigneeID = assigneeID;
+        this.assigneeName = assigneeName;
+        this.groupID = groupID;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -48,6 +58,7 @@ public class Task{
         this.endTime = endTime;
         this.progress = progress;
         this.description = description;
+        this.repeatTask = repeatTask;
     }
 
     // Getters and setters for data members
@@ -67,6 +78,11 @@ public class Task{
         this.user = assignee;
     }
 
+    public String getAssigneeName() { return assigneeName; }
+
+    public void setAssigneeName(String assigneeName){
+        this.assigneeName = assigneeName;
+    }
     public int getGroupID() {
         return group.getGroupID();
     }
@@ -131,6 +147,12 @@ public class Task{
         this.description = description;
     }
 
+    public String getRepeat() {return repeatTask;}
+
+    public void setRepeat(String repeat) {this.repeatTask = repeat;}
+
+
+
     // Methods for task management
 
     public void createTask() {
@@ -163,5 +185,3 @@ public class Task{
                 '}';
     }
 }
-
-
