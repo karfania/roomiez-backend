@@ -26,5 +26,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
 //    @Query("SELECT t FROM TaskTable t WHERE t.groupID = ?1")
     List<Task> findByGroup_groupID(int groupID);
+    List<Task> findByUser_ID(int userID);
 
 }

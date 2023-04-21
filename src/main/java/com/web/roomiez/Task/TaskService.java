@@ -32,9 +32,19 @@ public class TaskService {
         }
     }
 
+    public List<Task> getTasksForUser(int userID) throws NotFoundException
+    {
+        List<Task> userTasks = taskRepository.findByUser_ID(userID);
+        if (userTasks == null)
+        {
+            throw new NotFoundException();
+        }
+        return userTasks;
+    }
+
     public void createTask(int ID, User assignee, Group group, String name, String startDate, String endDate, String startTime, String endTime,
-                           int progress, String description){
-        Task task = new Task(ID, assignee, group, name, startDate, endDate, startTime, endTime, progress, description);
+                           int progress, String description, String repeatTasks){
+        Task task = new Task(ID, assignee, group, name, startDate, endDate, startTime, endTime, progress, description, repeatTasks);
         taskRepository.save(task);
     }
 

@@ -45,12 +45,11 @@ public class Task{
     }
 
     // Constructor
-    public Task(int taskID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description,
+    public Task(int taskID, User user, Group group, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description,
     String repeatTask) {
         this.taskID = taskID;
-        this.assigneeID = assigneeID;
-        this.assigneeName = assigneeName;
-        this.groupID = groupID;
+        this.user = user;
+        this.group = group;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;

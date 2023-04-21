@@ -18,12 +18,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
     private int ID;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="groupID", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Group group;
 
-    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Task> userTasks;
 
     //private int groupID;

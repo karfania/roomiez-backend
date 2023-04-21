@@ -177,6 +177,28 @@ public class GroupController {
         }
     }
 
+    @GetMapping("/{groupID}/userTasks")
+    public ResponseEntity<String> getGroupUserTasks(@PathVariable("groupID") int groupID)
+    {
+        JSONObject mainBody = new JSONObject();
+        try
+        {
+            List<User> usersInGroup = groupService.getUsersInGroup(groupID);
+            JSONObject userTaskJSON = new JSONObject();
+            for (User user: usersInGroup)
+            {
+                List<Task> usersTasks = taskService.getTasksForUser(user.getID());
+                userTaskJSON.put(user.getName(),usersTasks);
+            }
+
+            mainBody.put("roommates",userTaskJSON);
+            return new ResponseEntity<>(mainBody.toString(), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 //    // deleting group via their ID
 //    @DeleteMapping("/{groupID}")
 //    public ResponseEntity<String> deleteGroupByID(@PathVariable("groupID") int groupID)

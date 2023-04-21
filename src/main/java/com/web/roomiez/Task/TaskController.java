@@ -1,5 +1,6 @@
 package com.web.roomiez.Task;
 //THIS CLASS CALLS FUNCTIONS DEFINED IN TASK SERVICE
+import com.google.api.gax.rpc.NotFoundException;
 import com.web.roomiez.group.Group;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -29,6 +30,7 @@ public class TaskController {
     {
         return taskService.getTasks();
     }
+
     @GetMapping("/{taskID}")
     public ResponseEntity<Task> getTaskByID(@PathVariable("taskID") int taskID) throws ChangeSetPersister.NotFoundException {
         Task task = taskService.getTaskById(taskID);
@@ -36,6 +38,25 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(task, HttpStatus.FOUND);
+    }
+
+    @GetMapping
+    public ResponseEntity<String> getTasksForUser(@RequestParam("userID") int userID)
+    {
+        try
+        {
+            List<Task> userTasks = taskService.getTasksForUser(userID);
+
+            // body creation
+            JSONObject body = new JSONObject();
+            body.put("userID", userID);
+            body.put("tasks", userTasks);
+            return new ResponseEntity<>(body.toString(), HttpStatus.FOUND);
+
+        } catch (ChangeSetPersister.NotFoundException e)
+        {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping
