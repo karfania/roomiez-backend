@@ -25,6 +25,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     void updateTaskEndTime(@Param("id") int id,  @Param("endTime") String endTime);
 
 //    @Query("SELECT t FROM TaskTable t WHERE t.groupID = ?1")
-//    List<Task> findGroupTasks(@Param("groupID") int groupID);
+    List<Task> findByGroup_groupID(int groupID);
 
 }

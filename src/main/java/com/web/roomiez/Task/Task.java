@@ -1,6 +1,10 @@
 package com.web.roomiez.Task;
 
+import com.web.roomiez.group.Group;
+import com.web.roomiez.user.User;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "TaskTable")
@@ -10,21 +14,33 @@ public class Task{
     @SequenceGenerator(name = "task_seq", sequenceName = "task_seq", allocationSize = 1)
 
     private int taskID;
-    private int assigneeID;
-    private int groupID;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="assigneeID", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="groupID", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Group group;
+
     private String name;
     private String startDate; //Ask if this data type will be fine
     private String endDate;
     private String startTime; //TODO establish format of startDate and startTime
     private String endTime;
-    private Progress progress;
+    private int progress;
     private String description;
 
+    // default constructor
+    public Task() {
+    }
+
     // Constructor
-    public Task(int taskID, int assigneeID, int groupID, String name, String startDate, String endDate, String startTime, String endTime, Progress progress, String description) {
+    public Task(int taskID, User user, Group group, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description) {
         this.taskID = taskID;
-        this.assigneeID = assigneeID;
-        this.groupID = groupID;
+        this.user = user;
+        this.group = group;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -44,19 +60,19 @@ public class Task{
         this.taskID = ID;
     }
     public int getAssigneeID() {
-        return assigneeID;
+        return user.getID();
     }
 
-    public void setAssigneeID(int assigneeID) {
-        this.assigneeID = assigneeID;
+    public void setAssignee(User assignee) {
+        this.user = assignee;
     }
 
     public int getGroupID() {
-        return groupID;
+        return group.getGroupID();
     }
 
-    public void setGroupID(int groupID) {
-        this.groupID = groupID;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public String getName() {
@@ -99,11 +115,11 @@ public class Task{
         this.endTime = endTime;
     }
 
-    public Progress getProgress() {
+    public int getProgress() {
         return progress;
     }
 
-    public void setProgress(Progress progress) {
+    public void setProgress(int progress) {
         this.progress = progress;
     }
 
@@ -125,10 +141,26 @@ public class Task{
         // Implementation for deleting a task from the database
     }
 
-    public void updateTask(Progress newProgress, int newAssigneeID) {
+    public void updateTask(int newProgress, User newAssignee) {
         // Implementation for updating a task's progress and/or assigned user
         setProgress(newProgress);
-        setAssigneeID(newAssigneeID);
+        setAssignee(newAssignee);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskID=" + taskID +
+                ", user=" + user +
+                ", group=" + group +
+                ", name='" + name + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", progress=" + progress +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
 

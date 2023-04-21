@@ -59,11 +59,11 @@ public class UserServiceImplementation implements UserService {
 //        System.out.println(user.getID());
         return token;
     }
-
-    @Override
-    public void update(User user) {
-
-    }
+//
+//    @Override
+//    public void update(User user) {
+//
+//    }
     @Override
     public User findByUserID(int userID) throws ChangeSetPersister.NotFoundException {
         Optional<User> optionalUser = userRepository.findById(userID);
