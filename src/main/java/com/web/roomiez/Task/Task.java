@@ -26,13 +26,12 @@ public class Task{
     
     private String assigneeName;
     private String name;
-    private String startDate; //Ask if this data type will be fine
+    private String startDate; //Format YYYY-MM-DD
     private String endDate;
-    private String startTime; //TODO establish format of startDate and startTime
+    private String startTime; //Format HH:MM:SS
     private String endTime;
     private int progress;
     private String description;
-
     private String repeatTask;
 
     // Default Constructor
@@ -44,9 +43,14 @@ public class Task{
         this.taskID = taskID;
     }
 
+    public Task(String name, String repeatTask){
+        this.name = name;
+        this.repeatTask = repeatTask;
+    }
+
     // Constructor
     public Task(int taskID, User user, Group group, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description,
-    String repeatTask) {
+                String repeatTask) {
         this.taskID = taskID;
         this.user = user;
         this.group = group;
@@ -61,6 +65,10 @@ public class Task{
     }
 
     // Getters and setters for data members
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getID() {
         return taskID;
@@ -146,21 +154,9 @@ public class Task{
         this.description = description;
     }
 
-    public String getRepeat() {return repeatTask;}
+    public String getRepeatTask() {return repeatTask;}
 
-    public void setRepeat(String repeat) {this.repeatTask = repeat;}
-
-
-
-    // Methods for task management
-
-    public void createTask() {
-        // Implementation for adding a new task to the database
-    }
-
-    public void deleteTask() {
-        // Implementation for deleting a task from the database
-    }
+    public void setRepeatTask(String repeat) {this.repeatTask = repeat;}
 
     public void updateTask(int newProgress, User newAssignee) {
         // Implementation for updating a task's progress and/or assigned user
