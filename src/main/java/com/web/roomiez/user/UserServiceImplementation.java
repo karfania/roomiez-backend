@@ -4,15 +4,14 @@ import com.web.roomiez.email.ConfirmationToken;
 import com.web.roomiez.email.ConfirmationTokenService;
 import com.web.roomiez.email.EmailSender;
 import com.web.roomiez.email.EmailService;
+import com.web.roomiez.group.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -60,10 +59,24 @@ public class UserServiceImplementation implements UserService {
         return token;
     }
 
-//    @Override
-//    public void update(User user) {
-//
-//    }
+    @Override
+    public void deleteGroupID(int groupID) {
+       //Collection<User> collection = userRepository.findByGroupID(groupID);
+       List<User> collection = userRepository.findByGroup_groupID(groupID);
+//       Iterator<User> it = collection.iterator();
+//       while (it.hasNext()){
+        for (User user: collection)
+        {
+           user.setGroupID(0);
+           saveUser(user);
+       }
+    }
+
+    @Override
+    public int IDbyUser(String username) {
+        return userRepository.findByUsername(username).getID();
+    }
+
     @Override
     public User findByUserID(int userID) throws ChangeSetPersister.NotFoundException {
         Optional<User> optionalUser = userRepository.findById(userID);
@@ -148,7 +161,4 @@ public class UserServiceImplementation implements UserService {
                 "\n" +
                 "</div></div>";
     }
-
-
 }
-

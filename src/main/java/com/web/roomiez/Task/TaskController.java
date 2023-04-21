@@ -1,5 +1,6 @@
 package com.web.roomiez.Task;
 //THIS CLASS CALLS FUNCTIONS DEFINED IN TASK SERVICE
+import com.google.api.gax.rpc.NotFoundException;
 import com.web.roomiez.group.Group;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
+@CrossOrigin
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -28,6 +30,7 @@ public class TaskController {
     {
         return taskService.getTasks();
     }
+
     @GetMapping("/{taskID}")
     public ResponseEntity<Task> getTaskByID(@PathVariable("taskID") int taskID) throws ChangeSetPersister.NotFoundException {
         Task task = taskService.getTaskById(taskID);
@@ -35,6 +38,25 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(task, HttpStatus.FOUND);
+    }
+
+    @GetMapping
+    public ResponseEntity<String> getTasksForUser(@RequestParam("userID") int userID)
+    {
+        try
+        {
+            List<Task> userTasks = taskService.getTasksForUser(userID);
+
+            // body creation
+            JSONObject body = new JSONObject();
+            body.put("userID", userID);
+            body.put("tasks", userTasks);
+            return new ResponseEntity<>(body.toString(), HttpStatus.FOUND);
+
+        } catch (ChangeSetPersister.NotFoundException e)
+        {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping
@@ -62,11 +84,11 @@ public class TaskController {
 //        if(incrementedDate != null) {
 //            task.setEndDate(incrementedDate.toString());
 //        }
-
-        String username = task.getAssigneeName();
-        //Get the task group ID with username
-        int groupID = taskService.getGroupIDWithUsername(username);
-        task.setGroupID(groupID);
+//
+//        String username = task.getAssigneeName();
+////        //Get the task group ID with username
+//        Group group = taskService.getGroupWithUsername(username);
+//        task.setGroup(group);
 
         Task createdTask = taskService.addTask(task);
         if (createdTask == null) {

@@ -15,8 +15,12 @@ public class Group {
     private int groupID;
     private String groupName;
     @Transient
+    @OneToMany(targetEntity = com.web.roomiez.user.User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<User> usersInGroup;
-    //private List<Task> groupTasks;
+
+    @Transient
+    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Task> groupTasks;
 
 
     // default constructor
@@ -52,18 +56,18 @@ public class Group {
 
     @Override
     public String toString() {
-        return "Group{" +
+        return "{" +
                 "groupID=" + groupID +
                 ", groupName='" + groupName + '\'' +
                 '}';
     }
-    public List<User> getUsersInGroup() {
-        return usersInGroup;
-    }
-
-    public void setUsersInGroup(List<User> usersInGroup) {
-        this.usersInGroup = usersInGroup;
-    }
+//    public List<User> getUsersInGroup() {
+//        return usersInGroup;
+//    }
+//
+//    public void setUsersInGroup(List<User> usersInGroup) {
+//        this.usersInGroup = usersInGroup;
+//    }
 
 //    public List<Task> getGroupTasks() {
 //        return groupTasks;

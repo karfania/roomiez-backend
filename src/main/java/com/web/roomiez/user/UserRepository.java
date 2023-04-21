@@ -10,11 +10,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Collection;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     //returns the user object based on username
     User findByUsername(String username);
+
+//    //@Query(value = "Select u FROM User u WHERE u.groupID = ?1", nativeQuery = true)
+//    Collection<User> findByGroupID(int groupID);
 
     @Transactional
     @Modifying
@@ -22,8 +26,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int enableUser(String username);
 
     // grabbing users assigned to group with groupID
-    @Query("SELECT u FROM User u WHERE u.groupID = ?1")
-    List<User> findUsersInGroup(@Param("groupID") int groupID);
+    List<User> findByGroup_groupID(int groupID);
 }
 
 
