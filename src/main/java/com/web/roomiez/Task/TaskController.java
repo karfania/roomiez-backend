@@ -86,16 +86,16 @@ public class TaskController {
         if(incrementedDate != null) {
             task.setEndDate(incrementedDate.toString());
         }
+    else{
+            task.setEndDate(currentDate.toString());
+        }
 
-
-
-
-        //TODO: add user to the task
+        //Add user to the task
         String assigneeName = task.getAssigneeName();
         User assignee = userService.findByUsername(assigneeName);
         task.setUser(assignee);
 
-        //TODO: add group to the task
+        //Add group to the task
         Group group = assignee.getGroup();
         task.setGroup(group);
         Task createdTask = taskService.addTask(task);
@@ -107,8 +107,10 @@ public class TaskController {
     }
 
     @PutMapping("/progress/{taskId}")
-    public ResponseEntity<Task> updateTaskProgress(@PathVariable("taskId") int taskId, @RequestBody int progress) throws ChangeSetPersister.NotFoundException {
-        Task updatedTask = taskService.updateTaskProgress(taskId, progress);
+    public ResponseEntity<Task> updateTaskProgress(@PathVariable("taskId") int taskId, @RequestParam("progressNum") int progressNum) throws ChangeSetPersister.NotFoundException {
+        Task updatedTask = taskService.getTaskById(taskId);
+        updatedTask.setProgress(progressNum);
+        taskService.addTask(updatedTask);
         if (updatedTask == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -116,8 +118,10 @@ public class TaskController {
     }
 
     @PutMapping("/endDate/{taskId}")
-    public ResponseEntity<Task> updateTaskEndDate(@PathVariable("taskId") int taskId, @RequestBody String endDate) throws ChangeSetPersister.NotFoundException {
-        Task updatedTask = taskService.updateTaskEndDate(taskId, endDate);
+    public ResponseEntity<Task> updateTaskEndDate(@PathVariable("taskId") int taskId, @RequestParam String endDate) throws ChangeSetPersister.NotFoundException {
+        Task updatedTask = taskService.getTaskById(taskId);
+        updatedTask.setEndDate(endDate);
+        taskService.addTask(updatedTask);
         if (updatedTask == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -141,5 +145,4 @@ public class TaskController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }

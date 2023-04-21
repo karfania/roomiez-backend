@@ -26,9 +26,9 @@ public class Task{
     
     private String assigneeName;
     private String name;
-    private String startDate; //Ask if this data type will be fine
+    private String startDate; //Format YYYY-MM-DD
     private String endDate;
-    private String startTime; //TODO establish format of startDate and startTime
+    private String startTime; //Format HH:MM:SS
     private String endTime;
     private int progress;
     private String description;
@@ -157,18 +157,6 @@ public class Task{
     public String getRepeatTask() {return repeatTask;}
 
     public void setRepeatTask(String repeat) {this.repeatTask = repeat;}
-
-
-
-    // Methods for task management
-
-    public void createTask() {
-        // Implementation for adding a new task to the database
-    }
-
-    public void deleteTask() {
-        // Implementation for deleting a task from the database
-    }
 
     public void updateTask(int newProgress, User newAssignee) {
         // Implementation for updating a task's progress and/or assigned user
