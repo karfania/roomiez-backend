@@ -43,9 +43,14 @@ public class Task{
         this.taskID = taskID;
     }
 
+    public Task(String name, String repeatTask){
+        this.name = name;
+        this.repeatTask = repeatTask;
+    }
+
     // Constructor
     public Task(int taskID, User user, Group group, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description,
-    String repeatTask) {
+                String repeatTask) {
         this.taskID = taskID;
         this.user = user;
         this.group = group;
@@ -60,6 +65,10 @@ public class Task{
     }
 
     // Getters and setters for data members
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getID() {
         return taskID;
@@ -145,9 +154,9 @@ public class Task{
         this.description = description;
     }
 
-    public String getRepeat() {return repeatTask;}
+    public String getRepeatTask() {return repeatTask;}
 
-    public void setRepeat(String repeat) {this.repeatTask = repeat;}
+    public void setRepeatTask(String repeat) {this.repeatTask = repeat;}
 
 
 

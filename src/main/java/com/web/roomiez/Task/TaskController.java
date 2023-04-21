@@ -2,6 +2,8 @@ package com.web.roomiez.Task;
 //THIS CLASS CALLS FUNCTIONS DEFINED IN TASK SERVICE
 import com.google.api.gax.rpc.NotFoundException;
 import com.web.roomiez.group.Group;
+import com.web.roomiez.user.User;
+import com.web.roomiez.user.UserService;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +22,9 @@ import java.util.List;
 public class TaskController {
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private UserService userService;
 
     public TaskController(TaskService taskService){
         this.taskService = taskService;
@@ -61,7 +66,10 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<Task> addTask(@RequestBody Task task) {
-        String repeat = task.getRepeat();
+        String repeat = task.getRepeatTask();
+        task.setStartTime("00:00:00");
+        task.setEndTime("00:00:00");
+        task.setProgress(0);
         LocalDate currentDate = LocalDate.now();
 
         task.setStartDate(currentDate.toString());
@@ -78,7 +86,20 @@ public class TaskController {
         if(incrementedDate != null) {
             task.setEndDate(incrementedDate.toString());
         }
+
+
+
+
+        //TODO: add user to the task
+        String assigneeName = task.getAssigneeName();
+        User assignee = userService.findByUsername(assigneeName);
+        task.setUser(assignee);
+
+        //TODO: add group to the task
+        Group group = assignee.getGroup();
+        task.setGroup(group);
         Task createdTask = taskService.addTask(task);
+
         if (createdTask == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
