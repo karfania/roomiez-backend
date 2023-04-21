@@ -58,7 +58,6 @@ public class UserServiceImplementation implements UserService {
         return token;
     }
 
-
     @Override
     public void deleteGroupID(int groupID) {
        Collection<User> collection = userRepository.findByGroupID(groupID);
@@ -66,14 +65,12 @@ public class UserServiceImplementation implements UserService {
        while (it.hasNext()){
            it.next().setGroupID(0);
        }
-
     }
 
     @Override
     public int IDbyUser(String username) {
         return userRepository.findByUsername(username).getID();
     }
-
 
     @Override
     public User findByUserID(int userID) throws ChangeSetPersister.NotFoundException {
@@ -159,7 +156,4 @@ public class UserServiceImplementation implements UserService {
                 "\n" +
                 "</div></div>";
     }
-
-
 }
-

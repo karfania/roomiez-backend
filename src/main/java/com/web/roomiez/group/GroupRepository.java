@@ -26,11 +26,12 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     // modifying group name
     @Transactional
     @Modifying
-    @Query(value="UPDATE Group g SET g.groupName = ?2 WHERE g.groupID = ?1", nativeQuery = true)
-    void updateGroupNameByID(int groupID, String groupName);
+    @Query(value="UPDATE Group g SET g = ?2 WHERE g.groupID = ?1", nativeQuery = true)
+    void updateGroupNameByID(int groupID, Group group);
 
-    // deleting a group
-    @Modifying
-    @Query(value="DELETE FROM Group g WHERE g.groupID = ?1", nativeQuery = true)
-    void deleteGroupByID(int groupID);
+//    // deleting a group
+//    @Modifying
+//    //@Query(value="DELETE FROM Group g WHERE g.groupID = ?1", nativeQuery = true)
+//    void deleteGroupByID(int groupID);
+
 }

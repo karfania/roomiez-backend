@@ -40,7 +40,6 @@ public class GroupController {
     private TaskService taskService;
 
 
-
     // get all groups currently stored in web application
     @GetMapping("/all")
     public List<Group> getGroups()
@@ -90,7 +89,7 @@ public class GroupController {
         }
     }
 
-    // creating new group and communicate API response
+    // creating new group (via JSON) and communicate API response
     @PostMapping
     public ResponseEntity<String> addGroup(@RequestBody Group group)
     {
@@ -104,28 +103,39 @@ public class GroupController {
             // if the group already exists, report bad request (400)
             return new ResponseEntity<>(ise.getMessage(),HttpStatus.BAD_REQUEST);
         } catch (JSONException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(path="/email")
+    public ResponseEntity<String> notifyUser(@RequestBody Task task)
+    {
+        // key is task ID
+        try
+        {
+            User taskUser = userService.findByUserID(task.getAssigneeID());
+            JSONObject body = new JSONObject();
+            body.put("taskID", task.getAssigneeID());
+            body.put("user", taskUser);
+            return new ResponseEntity<>(body.toString(), HttpStatus.OK);
+        } catch (ChangeSetPersister.NotFoundException e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
     // updating group name
-    @PutMapping("/{groupID}/{groupName}")
-    public ResponseEntity<String> updateGroupName(@PathVariable("groupID") int groupID, @PathVariable("groupName") String groupName)
+    @PutMapping("/{groupID}")
+    public ResponseEntity<String> updateGroupName(@PathVariable("groupID") int groupID, @RequestBody Group group)
     {
-        try
-        {
-            groupService.updateGroupName(groupID, groupName);
-            JSONObject body = new JSONObject();
-            body.put("groupID", groupID);
-            body.put("groupName", groupName);
-            return new ResponseEntity<>(body.toString(), HttpStatus.OK);
-        } catch (IllegalStateException ise) {
-            // if the group already exists, report bad request (400)
-            return new ResponseEntity<>(ise.getMessage(),HttpStatus.BAD_REQUEST);
-        } catch (JSONException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-        }
+        Group updatedGroup = groupService.getGroupByID(groupID);
+        updatedGroup.setGroupName(group.getGroupName());
+        groupService.saveGroup(updatedGroup);
 
+        JSONObject body = new JSONObject();
+        body.put("groupID", updatedGroup.getGroupName());
+        body.put("groupName", updatedGroup.getGroupName());
+
+        return new ResponseEntity<>(updatedGroup.toString(),HttpStatus.OK);
     }
 
     // getting users within a group
@@ -137,65 +147,68 @@ public class GroupController {
             List<User> usersInGroup = groupService.getUsersInGroup(groupID);
 
             // body creation
+            JSONArray jsonArray = new JSONArray();
+            usersInGroup.forEach(jsonArray::put);
             JSONObject body = new JSONObject();
             body.put("groupID", groupID);
-            body.put("users", usersInGroup);
+            body.put("users", jsonArray);
+            return new ResponseEntity<>(body.toString(), HttpStatus.FOUND);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // getting tasks assigned to a group
+    @GetMapping("/{groupID}/tasks")
+    public ResponseEntity<String> getGroupTasks(@PathVariable("groupID") int groupID)
+    {
+        try
+        {
+            List<Task> groupTasks = groupService.getGroupTasks(groupID);
+
+            // body creation
+            JSONObject body = new JSONObject();
+            body.put("groupID", groupID);
+            body.put("tasks", groupTasks);
             return new ResponseEntity<>(body.toString(), HttpStatus.FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-//    // getting tasks assigned to a group
-//    @GetMapping("/{groupID}/tasks")
-//    public ResponseEntity<String> getGroupTasks(@PathVariable("groupID") int groupID)
+//    // deleting group via their ID
+//    @DeleteMapping("/{groupID}")
+//    public ResponseEntity<String> deleteGroupByID(@PathVariable("groupID") int groupID)
 //    {
-//        try
-//        {
-//            List<Task> groupTasks = groupService.getGroupTasks(groupID);
+//        try {
+////            // first, grab all of the tasks assigned to the group and delete them
+////            List<Task> tasksToRemove = groupService.getGroupTasks(groupID);
+////            for (Task task: tasksToRemove)
+////            {
+////                taskService.deleteTaskByID(task.getID());
+////            }
+////
+////            // then, update user groupID to be 0
+////            List<User> usersToUpdate = groupService.getUsersInGroup(groupID);
+////            for (User user: usersToUpdate)
+////            {
+////                userService.updateGroupID(userID);
+////            }
 //
-//            // body creation
-//            JSONObject body = new JSONObject();
-//            body.put("groupID", groupID);
-//            body.put("tasks", groupTasks);
-//            return new ResponseEntity<>(body.toString(), HttpStatus.FOUND);
+//            // finally, delete the group
+//            boolean deleted = groupService.deleteGroupByID(groupID);
+//            // if we didn't delete anything, return error
+//            if (!deleted)
+//            {
+//                return new ResponseEntity<>("Could not delete group " + groupID + ".", HttpStatus.NOT_FOUND);
+//            }
+//            // otherwise, deleted
+//            return new ResponseEntity<>("Deleted group " + groupID + ".", HttpStatus.NO_CONTENT);
 //        } catch (Exception e) {
 //            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 //        }
 //    }
-
-    // deleting group via their ID
-    @DeleteMapping("/{groupID}")
-    public ResponseEntity<String> deleteGroupByID(@PathVariable("groupID") int groupID)
-    {
-        try {
-//            // first, grab all of the tasks assigned to the group and delete them
-//            List<Task> tasksToRemove = groupService.getGroupTasks(groupID);
-//            for (Task task: tasksToRemove)
-//            {
-//                taskService.deleteTaskByID(task.getID());
-//            }
-//
-//            // then, update user groupID to be 0
-//            List<User> usersToUpdate = groupService.getUsersInGroup(groupID);
-//            for (User user: usersToUpdate)
-//            {
-//                userService.updateGroupID(userID);
-//            }
-
-            // finally, delete the group
-            boolean deleted = groupService.deleteGroupByID(groupID);
-            // if we didn't delete anything, return error
-            if (!deleted)
-            {
-                return new ResponseEntity<>("Could not delete group " + groupID + ".", HttpStatus.NOT_FOUND);
-            }
-            // otherwise, deleted
-            return new ResponseEntity<>("Deleted group " + groupID + ".", HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
 
 
 }

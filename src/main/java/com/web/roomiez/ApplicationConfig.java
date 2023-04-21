@@ -41,22 +41,22 @@ public class ApplicationConfig {
             );
 
             User u1 = new User();
-            u1.setGroupID(3);
+            u1.setGroup(g3);
             u1.setName("Kory");
             u1.setUsername("arfania@usc.edu");
             u1.setPassword("123");
 
             User u2 = new User();
-            u2.setGroupID(2);
+            u2.setGroup(g3);
             u2.setName("Chely");
             u2.setUsername("chely@usc.edu");
             u2.setPassword("1234");
 
             User u3 = new User();
-            u1.setGroupID(1);
-            u1.setName("Tyler");
-            u1.setUsername("tyler@usc.edu");
-            u1.setPassword("12345");
+            u3.setGroup(g1);
+            u3.setName("Tyler");
+            u3.setUsername("tyler@usc.edu");
+            u3.setPassword("12345");
 
             userRepository.saveAll(
                     List.of(u1, u2, u3)
@@ -64,9 +64,8 @@ public class ApplicationConfig {
 
             Task t1 = new Task(
                     1,
-                    1,
-                    "Bob",
-                    3,
+                    u1,
+                    g3,
                     "Task 1",
                     "01/01/1970",
                     "01/02/1970",
@@ -77,7 +76,51 @@ public class ApplicationConfig {
                     "weekly"
             );
 
-            taskRepository.save(t1);
+            Task t2 = new Task(
+                    2,
+                    u1,
+                    g3,
+                    "Task 2",
+                    "01/01/1970",
+                    "01/02/1970",
+                    "2:00pm",
+                    "5:00pm",
+                    1,
+                    "This is a dummy task.",
+                    "weekly"
+            );
+
+            Task t3 = new Task(
+                    3,
+                    u2,
+                    g3,
+                    "Task 3",
+                    "01/01/1970",
+                    "01/02/1970",
+                    "2:00pm",
+                    "5:00pm",
+                    0,
+                    "This is a dummy task.",
+                    "weekly"
+            );
+
+            Task t4 = new Task(
+                    4,
+                    u3,
+                    g1,
+                    "Task 4",
+                    "01/01/1970",
+                    "01/02/1970",
+                    "2:00pm",
+                    "5:00pm",
+                    0,
+                    "This is a dummy task.",
+                    "weekly"
+            );
+
+            taskRepository.saveAll(
+                    List.of(t1, t2, t3, t4)
+            );
         };
     }
 }
