@@ -24,7 +24,7 @@ public class UserServiceImplementation implements UserService {
     private EmailSender emailSender;
 
    //Override to implement interface
-    //Saves user in repository
+   //Saves user in repository
    @Override
     public User saveUser(User user) {
         return userRepository.save(user);
@@ -62,15 +62,11 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public void deleteGroupID(int groupID) {
-       //Collection<User> collection = userRepository.findByGroupID(groupID);
        List<User> collection = userRepository.findBygroupID(groupID);
-//       Iterator<User> it = collection.iterator();
-//       while (it.hasNext()){
         for (User user: collection)
         {
-           //user.setGroup(new Group());
             user.setGroupID(0);
-           saveUser(user);
+            saveUser(user);
        }
     }
 

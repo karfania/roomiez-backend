@@ -1,6 +1,6 @@
 package com.web.roomiez.Task;
 //THIS CLASS INTERACTS WITH THE DATABASE
-import com.web.roomiez.user.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

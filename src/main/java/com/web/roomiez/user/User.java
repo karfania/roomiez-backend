@@ -1,16 +1,8 @@
 package com.web.roomiez.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.web.roomiez.Task.Task;
-import com.web.roomiez.group.Group;
 import jakarta.persistence.*;
-import jdk.jfr.DataAmount;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "user_table")
@@ -19,62 +11,49 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
     private int ID;
 
-//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-//    @JoinColumn(name="groupID", nullable = true)
-//    @OnDelete(action = OnDeleteAction.NO_ACTION)
-//    private Group group;
     private int groupID;
 
-//    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<Task> userTasks;
-
-    //private int groupID;
     private String name;
-    //Username must be an email
-    private String username;
+    private String username; //email
     private String password;
-    //private ArrayList<Task> tasks;
-    //private Boolean completedCurrentTasks;
 
     private Boolean locked = false;
     private Boolean enabled = false;
 
     //Constructor
     public User() {
-
+        this.ID = 0;
+        this.groupID = 0;
+        this.name = "";
+        this.password = "";
+        this.username = "";
     }
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "ID=" + ID +
-//                ", group=" + group +
-////                ", userTasks=" + userTasks +
-//                ", name='" + name + '\'' +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", locked=" + locked +
-//                ", enabled=" + enabled +
-//                '}';
-//    }
 
     @Override
     public String toString() {
-        return "{" +
-                "ID:" + ID +
-                ", groupID:" + groupID +
-                ", name:" + name +
-                ", username:" + username +
-                ", password:" + password +
-                ", locked:" + locked +
-                ", enabled:" + enabled +
+        return "User{" +
+                "ID=" + ID +
+                ", groupID=" + groupID +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", locked=" + locked +
+                ", enabled=" + enabled +
                 '}';
     }
 
-//    public JSONObject toJSON() {
-//        JSONObject = new JSONObject();
-//    }
+    public JSONObject toJSON() {
+        JSONObject body = new JSONObject();
+        body.put("ID", ID);
+        body.put("groupID", groupID);
+        body.put("name", name);
+        body.put("username", username);
+        body.put("password", password);
+        body.put("locked", locked);
+        body.put("enabled", enabled);
 
+        return body;
+    }
 
 //getters and setters
 
@@ -85,24 +64,6 @@ public class User {
     public void setID(int ID) {
         this.ID = ID;
     }
-
-//    public Group getGroup()
-//    {
-//        return this.group;
-//    }
-//
-//    public void setGroup(Group group)
-//    {
-//        this.group = group;
-//    }
-
-//    public int getGroupID() {
-//        return group.getGroupID();
-//    }
-//
-//    public void setGroupID(int groupID) {
-//        this.group.setGroupID(groupID);
-//    }
 
     public int getGroupID()
     {
@@ -137,22 +98,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-//    public List<Task> getTasks() {
-//        return userTasks;
-//    }
-//
-//    public void setTasks(List<Task> tasks) {
-//        this.userTasks = tasks;
-//    }
-
-//    public Boolean getCompletedCurrentTasks() {
-//        return completedCurrentTasks;
-//    }
-//
-//    public void setCompletedCurrentTasks(Boolean completedCurrentTasks) {
-//        this.completedCurrentTasks = completedCurrentTasks;
-//    }
-
 
     public Boolean getLocked() {
         return locked;
@@ -169,9 +114,5 @@ public class User {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-
-
-
-
 
 }

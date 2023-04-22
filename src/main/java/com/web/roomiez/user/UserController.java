@@ -100,8 +100,8 @@ public class UserController {
     }
 
     @GetMapping("/update")
-    public List<User> update(){
-        userService.deleteGroupID(1);
+    public List<User> update(@RequestParam int groupID){
+        userService.deleteGroupID(groupID);
         return userService.getAllUsers();
     }
 }

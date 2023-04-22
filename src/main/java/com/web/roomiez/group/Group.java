@@ -1,9 +1,6 @@
 package com.web.roomiez.group;
 
-import com.web.roomiez.Task.Task;
-import com.web.roomiez.user.User;
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "GroupTable")
