@@ -35,13 +35,16 @@ public class WebSecurityConfiguration {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/**").permitAll().and()
+                .requestMatchers("/**").permitAll()
+                .requestMatchers("/login").authenticated()
+                .anyRequest().authenticated().and()
+                .httpBasic();
 //                .requestMatchers("/user/confirm/**").permitAll()
 //                .requestMatchers("/user/registration").permitAll()
 //                .requestMatchers("/user/registration/**").permitAll()
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .permitAll());
+//                .formLogin(form -> form
+//                        .loginPage("/login")
+//                        .permitAll());
 
 
 
