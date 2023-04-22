@@ -4,18 +4,14 @@ import com.web.roomiez.Task.Task;
 import com.web.roomiez.Task.TaskService;
 import com.web.roomiez.user.User;
 import com.web.roomiez.user.UserService;
-import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
-//import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,11 +141,11 @@ public class GroupController {
         try
         {
             List<User> usersInGroup = groupService.getUsersInGroup(groupID);
-            JSONArray usersInGroupJSON = new JSONArray();
+            List<JSONObject> listJSON = new ArrayList<>();
 
             for (User user : usersInGroup)
             {
-                usersInGroupJSON.put(user);
+                listJSON.add(user.toJSON());
             }
 
             // body creation
@@ -157,7 +153,7 @@ public class GroupController {
 //            usersInGroup.forEach(jsonArray::put);
             JSONObject body = new JSONObject();
             body.put("groupID", groupID);
-            body.put("users", usersInGroupJSON);
+            body.put("users", listJSON);
             return new ResponseEntity<>(body.toString(), HttpStatus.FOUND);
 
         } catch (Exception e) {

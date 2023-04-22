@@ -1,13 +1,10 @@
 package com.web.roomiez.Task;
 //THIS CLASS CALLS FUNCTIONS DEFINED IN TASK SERVICE
-import com.google.api.gax.rpc.NotFoundException;
 import com.web.roomiez.group.Group;
 import com.web.roomiez.group.GroupService;
 import com.web.roomiez.user.User;
 import com.web.roomiez.user.UserService;
 import org.json.JSONObject;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -100,10 +97,8 @@ public class TaskController {
         task.setUser(assignee);
 
         //Add group to the task
-        //Group group = assignee.getGroup();
         int groupID = assignee.getGroupID();
         Group group = groupService.getGroupByID(groupID);
-        //task.setGroup(group);
         task.setGroup(group);
         Task createdTask = taskService.addTask(task);
 

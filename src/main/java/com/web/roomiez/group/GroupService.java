@@ -2,14 +2,9 @@ package com.web.roomiez.group;
 
 import com.web.roomiez.Task.Task;
 import com.web.roomiez.Task.TaskRepository;
-import com.web.roomiez.Task.TaskService;
 import com.web.roomiez.user.User;
 import com.web.roomiez.user.UserRepository;
-import com.web.roomiez.user.UserService;
-import org.hibernate.service.NullServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,11 +28,6 @@ public class GroupService {
     @Autowired
     private TaskRepository taskRepository;
 
-//    @Autowired
-//    private Group group;
-//
-//    @Autowired
-//    private Task task;
 
     public void saveGroup(Group group)
     {
@@ -115,7 +105,6 @@ public class GroupService {
     public List<User> getUsersInGroup(int groupID) throws Exception
     {
         List<User> usersInGroup = userRepository.findBygroupID(groupID);
-        //List<User> usersInGroup = groupRepository.findByUser_groupID(groupID);
         // if we receive null, it means we have an error in access
         if (usersInGroup == null)
         {
@@ -134,7 +123,7 @@ public class GroupService {
         if (groupTasks == null) {
             throw new Exception("No users in group with groupID: " + groupID + ".");
         }
-        //group.setGroupTasks(groupTasks);
+
         return groupTasks;
     }
 

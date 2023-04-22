@@ -1,6 +1,5 @@
 package com.web.roomiez.group;
 
-import com.web.roomiez.user.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -28,12 +27,5 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Modifying
     @Query(value="UPDATE Group g SET g = ?2 WHERE g.groupID = ?1", nativeQuery = true)
     void updateGroupNameByID(int groupID, Group group);
-
-
-
-//    // deleting a group
-//    @Modifying
-//    //@Query(value="DELETE FROM Group g WHERE g.groupID = ?1", nativeQuery = true)
-//    void deleteGroupByID(int groupID);
 
 }
