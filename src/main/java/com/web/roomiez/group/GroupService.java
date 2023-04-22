@@ -114,7 +114,7 @@ public class GroupService {
     // get users in group with group ID
     public List<User> getUsersInGroup(int groupID) throws Exception
     {
-        List<User> usersInGroup = userRepository.findByGroup_groupID(groupID);
+        List<User> usersInGroup = userRepository.findBygroupID(groupID);
         //List<User> usersInGroup = groupRepository.findByUser_groupID(groupID);
         // if we receive null, it means we have an error in access
         if (usersInGroup == null)
@@ -138,17 +138,17 @@ public class GroupService {
         return groupTasks;
     }
 
-//    // deleting group
-//    public boolean deleteGroupByID(int groupID)
-//    {
-//        try
-//        {
-//            groupRepository.deleteGroupByID(groupID);
-//            return true;
-//        } catch (Exception e)
-//        {
-//            // if there is an issue, we didn't remove the group
-//            return false;
-//        }
-//    }
+    // deleting group
+    public boolean deleteGroupByID(int groupID)
+    {
+        try
+        {
+            groupRepository.deleteById(groupID);
+            return true;
+        } catch (Exception e)
+        {
+            // if there is an issue, we didn't remove the group
+            return false;
+        }
+    }
 }

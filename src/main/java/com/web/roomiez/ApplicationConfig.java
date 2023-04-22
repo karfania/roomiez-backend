@@ -43,19 +43,22 @@ public class ApplicationConfig {
             );
 
             User u1 = new User();
-            u1.setGroup(g3);
+            //u1.setGroup(g3);
+            u1.setGroupID(3);
             u1.setName("Kory");
             u1.setUsername("arfania@usc.edu");
             u1.setPassword("123");
 
             User u2 = new User();
-            u2.setGroup(g3);
+           //u2.setGroup(g3);
+            u2.setGroupID(3);
             u2.setName("Chely");
             u2.setUsername("chely@usc.edu");
             u2.setPassword("1234");
 
             User u3 = new User();
-            u3.setGroup(g1);
+            //u3.setGroup(g1);
+            u3.setGroupID(1);
             u3.setName("Tyler");
             u3.setUsername("tyler@usc.edu");
             u3.setPassword("12345");

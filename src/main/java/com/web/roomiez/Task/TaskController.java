@@ -2,6 +2,7 @@ package com.web.roomiez.Task;
 //THIS CLASS CALLS FUNCTIONS DEFINED IN TASK SERVICE
 import com.google.api.gax.rpc.NotFoundException;
 import com.web.roomiez.group.Group;
+import com.web.roomiez.group.GroupService;
 import com.web.roomiez.user.User;
 import com.web.roomiez.user.UserService;
 import org.json.JSONObject;
@@ -25,6 +26,9 @@ public class TaskController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GroupService groupService;
 
     public TaskController(TaskService taskService){
         this.taskService = taskService;
@@ -96,7 +100,10 @@ public class TaskController {
         task.setUser(assignee);
 
         //Add group to the task
-        Group group = assignee.getGroup();
+        //Group group = assignee.getGroup();
+        int groupID = assignee.getGroupID();
+        Group group = groupService.getGroupByID(groupID);
+        //task.setGroup(group);
         task.setGroup(group);
         Task createdTask = taskService.addTask(task);
 

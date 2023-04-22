@@ -14,17 +14,11 @@ public class Group {
     )
     private int groupID;
     private String groupName;
-//    @Transient
-//    @OneToMany(targetEntity = com.web.roomiez.user.User.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<User> usersInGroup;
-//
-//    @Transient
-//    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Task> groupTasks;
-
 
     // default constructor
     public Group() {
+        this.groupID = 0;
+        this.groupName = "";
     }
 
     // constructor assuming MySQL-generated ID
@@ -61,19 +55,4 @@ public class Group {
                 ", groupName='" + groupName + '\'' +
                 '}';
     }
-//    public List<User> getUsersInGroup() {
-//        return usersInGroup;
-//    }
-//
-//    public void setUsersInGroup(List<User> usersInGroup) {
-//        this.usersInGroup = usersInGroup;
-//    }
-
-//    public List<Task> getGroupTasks() {
-//        return groupTasks;
-//    }
-//
-//    public void setGroupTasks(List<Task> groupTasks) {
-//        this.groupTasks = groupTasks;
-//    }
 }

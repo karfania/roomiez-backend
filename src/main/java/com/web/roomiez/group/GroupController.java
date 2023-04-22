@@ -145,13 +145,19 @@ public class GroupController {
         try
         {
             List<User> usersInGroup = groupService.getUsersInGroup(groupID);
+            JSONArray usersInGroupJSON = new JSONArray();
+
+            for (User user : usersInGroup)
+            {
+                usersInGroupJSON.put(user);
+            }
 
             // body creation
-            JSONArray jsonArray = new JSONArray();
-            usersInGroup.forEach(jsonArray::put);
+//            JSONArray jsonArray = new JSONArray();
+//            usersInGroup.forEach(jsonArray::put);
             JSONObject body = new JSONObject();
             body.put("groupID", groupID);
-            body.put("users", jsonArray);
+            body.put("users", usersInGroupJSON);
             return new ResponseEntity<>(body.toString(), HttpStatus.FOUND);
 
         } catch (Exception e) {
@@ -199,38 +205,33 @@ public class GroupController {
         }
     }
 
-//    // deleting group via their ID
-//    @DeleteMapping("/{groupID}")
-//    public ResponseEntity<String> deleteGroupByID(@PathVariable("groupID") int groupID)
-//    {
-//        try {
-////            // first, grab all of the tasks assigned to the group and delete them
-////            List<Task> tasksToRemove = groupService.getGroupTasks(groupID);
-////            for (Task task: tasksToRemove)
-////            {
-////                taskService.deleteTaskByID(task.getID());
-////            }
-////
-////            // then, update user groupID to be 0
-////            List<User> usersToUpdate = groupService.getUsersInGroup(groupID);
-////            for (User user: usersToUpdate)
-////            {
-////                userService.updateGroupID(userID);
-////            }
-//
-//            // finally, delete the group
-//            boolean deleted = groupService.deleteGroupByID(groupID);
-//            // if we didn't delete anything, return error
-//            if (!deleted)
-//            {
-//                return new ResponseEntity<>("Could not delete group " + groupID + ".", HttpStatus.NOT_FOUND);
-//            }
-//            // otherwise, deleted
-//            return new ResponseEntity<>("Deleted group " + groupID + ".", HttpStatus.NO_CONTENT);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    // deleting group via their ID
+    @DeleteMapping("/{groupID}")
+    public ResponseEntity<String> deleteGroupByID(@PathVariable("groupID") int groupID)
+    {
+        try {
+            // first, grab all of the tasks assigned to the group and delete them
+            List<Task> tasksToRemove = groupService.getGroupTasks(groupID);
+            for (Task task: tasksToRemove)
+            {
+                taskService.deleteTaskByID(task.getID());
+            }
+
+            userService.deleteGroupID(groupID);
+
+            // finally, delete the group
+            boolean deleted = groupService.deleteGroupByID(groupID);
+            // if we didn't delete anything, return error
+            if (!deleted)
+            {
+                return new ResponseEntity<>("Could not delete group " + groupID + ".", HttpStatus.NOT_FOUND);
+            }
+            // otherwise, deleted
+            return new ResponseEntity<>("Deleted group " + groupID + ".", HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 }
