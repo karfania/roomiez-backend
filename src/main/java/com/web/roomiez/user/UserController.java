@@ -104,4 +104,11 @@ public class UserController {
         userService.deleteGroupID(groupID);
         return userService.getAllUsers();
     }
+
+    @PostMapping("/send/{email}")
+    public ResponseEntity<User> sendNudge(@PathVariable String email){
+        User user = userService.findByUsername(email);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }
