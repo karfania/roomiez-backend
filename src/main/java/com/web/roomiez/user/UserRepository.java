@@ -26,7 +26,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int enableUser(String username);
 
     // grabbing users assigned to group with groupID
-    List<User> findByGroup_groupID(int groupID);
+    List<User> findBygroupID(int groupID);
 }
 
 

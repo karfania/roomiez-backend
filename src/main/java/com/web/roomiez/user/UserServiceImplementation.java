@@ -63,12 +63,13 @@ public class UserServiceImplementation implements UserService {
     @Override
     public void deleteGroupID(int groupID) {
        //Collection<User> collection = userRepository.findByGroupID(groupID);
-       List<User> collection = userRepository.findByGroup_groupID(groupID);
+       List<User> collection = userRepository.findBygroupID(groupID);
 //       Iterator<User> it = collection.iterator();
 //       while (it.hasNext()){
         for (User user: collection)
         {
-           user.setGroupID(0);
+           //user.setGroup(new Group());
+            user.setGroupID(0);
            saveUser(user);
        }
     }
@@ -93,6 +94,7 @@ public class UserServiceImplementation implements UserService {
             throw new ChangeSetPersister.NotFoundException();
         }
     }
+
 
     @Override
     public User findByUsername(String username) {

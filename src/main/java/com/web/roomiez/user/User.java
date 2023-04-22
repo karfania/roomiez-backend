@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
     private int ID;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name="groupID", nullable = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Group group;
+//    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+//    @JoinColumn(name="groupID", nullable = true)
+//    @OnDelete(action = OnDeleteAction.NO_ACTION)
+//    private Group group;
+    private int groupID;
 
 //    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private List<Task> userTasks;
@@ -42,19 +44,37 @@ public class User {
 
     }
 
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "ID=" + ID +
+//                ", group=" + group +
+////                ", userTasks=" + userTasks +
+//                ", name='" + name + '\'' +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", locked=" + locked +
+//                ", enabled=" + enabled +
+//                '}';
+//    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", group=" + group +
-//                ", userTasks=" + userTasks +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", locked=" + locked +
-                ", enabled=" + enabled +
+        return "{" +
+                "ID:" + ID +
+                ", groupID:" + groupID +
+                ", name:" + name +
+                ", username:" + username +
+                ", password:" + password +
+                ", locked:" + locked +
+                ", enabled:" + enabled +
                 '}';
     }
+
+//    public JSONObject toJSON() {
+//        JSONObject = new JSONObject();
+//    }
+
 
 //getters and setters
 
@@ -66,22 +86,32 @@ public class User {
         this.ID = ID;
     }
 
-    public Group getGroup()
+//    public Group getGroup()
+//    {
+//        return this.group;
+//    }
+//
+//    public void setGroup(Group group)
+//    {
+//        this.group = group;
+//    }
+
+//    public int getGroupID() {
+//        return group.getGroupID();
+//    }
+//
+//    public void setGroupID(int groupID) {
+//        this.group.setGroupID(groupID);
+//    }
+
+    public int getGroupID()
     {
-        return this.group;
+        return this.groupID;
     }
 
-    public void setGroup(Group group)
+    public void setGroupID(int groupID)
     {
-        this.group = group;
-    }
-
-    public int getGroupID() {
-        return group.getGroupID();
-    }
-
-    public void setGroupID(int groupID) {
-        this.group.setGroupID(groupID);
+        this.groupID = groupID;
     }
 
     public String getName() {
