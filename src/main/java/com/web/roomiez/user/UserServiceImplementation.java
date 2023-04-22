@@ -31,6 +31,7 @@ public class UserServiceImplementation implements UserService {
     }
 
 
+
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -53,7 +54,7 @@ public class UserServiceImplementation implements UserService {
 
         //TODO: change localhost to deployed name
         String link = "http://localhost:8080/user/confirm?token=" + token;
-        emailSender.send(user.getUsername(), buildEmail(user.getUsername(), link));
+        //emailSender.send(user.getUsername(), buildEmail(user.getUsername(), link));
 //        System.out.println(user.getUsername());
 //        System.out.println(user.getID());
         return token;
@@ -75,6 +76,11 @@ public class UserServiceImplementation implements UserService {
     @Override
     public int IDbyUser(String username) {
         return userRepository.findByUsername(username).getID();
+    }
+
+    @Override
+    public int groupIdByUser(int userId) {
+        return userRepository.getById(userId).getGroupID();
     }
 
     @Override

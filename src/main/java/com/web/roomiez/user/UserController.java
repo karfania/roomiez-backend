@@ -57,17 +57,17 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    //TODO: get all the tasks that the user needs
-    @GetMapping("/{userID}/tasks")
-    public ResponseEntity<User> userTasks(@PathVariable int userID) throws ChangeSetPersister.NotFoundException {
-        User user = userService.findByUserID(userID);
-        if (user == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        //TODO: taskService method to return all tasks associated with user
-        //ArrayList<Task> tasks =
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+//    //TODO: get all the tasks that the user needs
+//    @GetMapping("/{userID}/tasks")
+//    public ResponseEntity<User> userTasks(@PathVariable int userID) throws ChangeSetPersister.NotFoundException {
+//        User user = userService.findByUserID(userID);
+//        if (user == null){
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        //TODO: taskService method to return all tasks associated with user
+//        //ArrayList<Task> tasks =
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
 
     @GetMapping(path = "confirm")
     public String confirm(@RequestParam("token") String token) {
@@ -84,12 +84,13 @@ public class UserController {
 
 
     //TODO: update user information -> name
-//    @PutMapping("/{userID}/update")
-//    public ResponseEntity<User> update(@PathVariable int userID, @RequestParam String newName){
-//        User user = userService.findById(userID);
-//        user.setName(newName);
-//        return new ResponseEntity<>();
-//    }
+    @PutMapping("/{userID}/setGroup")
+    public ResponseEntity<User> update(@PathVariable int userID, @RequestParam int groupID) throws ChangeSetPersister.NotFoundException {
+        User user = userService.findByUserID(userID);
+        user.setGroupID(groupID);
+        userService.saveUser(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
 
     //Prints all users

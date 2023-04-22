@@ -26,5 +26,6 @@ public interface UserService {
 
     public int IDbyUser(String username);
 
+    public int groupIdByUser(int userId);
 
 }
