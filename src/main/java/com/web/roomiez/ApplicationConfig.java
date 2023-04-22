@@ -7,11 +7,13 @@ import com.web.roomiez.group.Group;
 import com.web.roomiez.group.GroupRepository;
 import com.web.roomiez.user.User;
 import com.web.roomiez.user.UserRepository;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // DEPENDENCY INJECTION + BEAN INSTANTIATION
@@ -76,6 +78,7 @@ public class ApplicationConfig {
                     "weekly"
             );
 
+
             Task t2 = new Task(
                     2,
                     u1,
@@ -89,6 +92,7 @@ public class ApplicationConfig {
                     "This is a dummy task.",
                     "weekly"
             );
+
 
             Task t3 = new Task(
                     3,
