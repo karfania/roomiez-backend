@@ -23,8 +23,8 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Group group;
 
-    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Task> userTasks;
+//    @OneToMany(targetEntity = com.web.roomiez.Task.Task.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private List<Task> userTasks;
 
     //private int groupID;
     private String name;
@@ -47,7 +47,7 @@ public class User {
         return "User{" +
                 "ID=" + ID +
                 ", group=" + group +
-                ", userTasks=" + userTasks +
+//                ", userTasks=" + userTasks +
                 ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -107,13 +107,13 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public List<Task> getTasks() {
-        return userTasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.userTasks = tasks;
-    }
+//    public List<Task> getTasks() {
+//        return userTasks;
+//    }
+//
+//    public void setTasks(List<Task> tasks) {
+//        this.userTasks = tasks;
+//    }
 
 //    public Boolean getCompletedCurrentTasks() {
 //        return completedCurrentTasks;

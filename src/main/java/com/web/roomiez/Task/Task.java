@@ -15,12 +15,12 @@ public class Task{
     private int taskID;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="assigneeID", nullable = true)
+    @JoinColumn(name="assigneeID", referencedColumnName = "ID", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="groupID", nullable = true)
+    @JoinColumn(name="groupID", referencedColumnName = "groupID", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Group group;
     
