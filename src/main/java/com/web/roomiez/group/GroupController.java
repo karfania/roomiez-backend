@@ -2,6 +2,7 @@ package com.web.roomiez.group;
 
 import com.web.roomiez.Task.Task;
 import com.web.roomiez.Task.TaskService;
+import com.web.roomiez.email.EmailService;
 import com.web.roomiez.user.User;
 import com.web.roomiez.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class GroupController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private EmailService emailService;
 
 
     // get all groups currently stored in web application
@@ -149,8 +153,6 @@ public class GroupController {
             }
 
             // body creation
-//            JSONArray jsonArray = new JSONArray();
-//            usersInGroup.forEach(jsonArray::put);
             JSONObject body = new JSONObject();
             body.put("groupID", groupID);
             body.put("users", listJSON);
@@ -179,6 +181,7 @@ public class GroupController {
         }
     }
 
+    // get all users and their tasks in a group
     @GetMapping("/{groupID}/userTasks")
     public ResponseEntity<String> getGroupUserTasks(@PathVariable("groupID") int groupID)
     {
@@ -199,6 +202,26 @@ public class GroupController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // sending an email to a user within a group
+    @GetMapping("/email")
+    public ResponseEntity<String> sendEmail(@RequestParam String username, @RequestParam String taskIn)
+    {
+        int taskID = Integer.parseInt(taskIn);
+        try {
+            Task task = taskService.getTaskById(taskID);
+            String emailBody = groupService.remind(username, task.toString());
+            emailService.send(username, emailBody);
+
+            return new ResponseEntity<>("Email sent to: " + username, HttpStatus.OK);
+
+
+        } catch (ChangeSetPersister.NotFoundException nfe) {
+            return new ResponseEntity<>("Could not find taskID: " + taskID, HttpStatus.NOT_FOUND);
+        }
+
+
     }
 
     // deleting group via their ID
