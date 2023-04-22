@@ -39,6 +39,11 @@ public class GroupService {
 //    @Autowired
 //    private Task task;
 
+    public void saveGroup(Group group)
+    {
+        groupRepository.save(group);
+    }
+
     // return list of all groups in our database
     public List<Group> getGroups()
     {
@@ -90,9 +95,9 @@ public class GroupService {
     }
 
     // update group name if it exists
-    public void updateGroupName(int groupID, String groupName)
+    public void updateGroup(int groupID, Group group)
     {
-        groupRepository.updateGroupNameByID(groupID, groupName);
+        groupRepository.updateGroupNameByID(groupID, group);
         Optional<Group> optionalUpdatedGroup = groupRepository.findGroupByID(groupID);
         // if the group exists and the name was modified, save the updated student
         if (optionalUpdatedGroup.isPresent())
@@ -109,7 +114,8 @@ public class GroupService {
     // get users in group with group ID
     public List<User> getUsersInGroup(int groupID) throws Exception
     {
-        List<User> usersInGroup = userRepository.findUsersInGroup(groupID);
+        List<User> usersInGroup = userRepository.findByGroup_groupID(groupID);
+        //List<User> usersInGroup = groupRepository.findByUser_groupID(groupID);
         // if we receive null, it means we have an error in access
         if (usersInGroup == null)
         {
@@ -120,29 +126,29 @@ public class GroupService {
         return usersInGroup;
     }
 
-//    // get tasks assigned to a group
-//    public List<Task> getGroupTasks(int groupID) throws Exception
-//    {
-//        List<Task> groupTasks = taskRepository.findGroupTasks(groupID);
-//        // if we receive null, it means we have an error in access
-//        if (groupTasks == null) {
-//            throw new Exception("No users in group with groupID: " + groupID + ".");
-//        }
-//        group.setGroupTasks(groupTasks);
-//        return groupTasks;
-//    }
-
-    // deleting group
-    public boolean deleteGroupByID(int groupID)
+    // get tasks assigned to a group
+    public List<Task> getGroupTasks(int groupID) throws Exception
     {
-        try
-        {
-            groupRepository.deleteGroupByID(groupID);
-            return true;
-        } catch (Exception e)
-        {
-            // if there is an issue, we didn't remove the group
-            return false;
+        List<Task> groupTasks = taskRepository.findByGroup_groupID(groupID);
+        // if we receive null, it means we have an error in access
+        if (groupTasks == null) {
+            throw new Exception("No users in group with groupID: " + groupID + ".");
         }
+        //group.setGroupTasks(groupTasks);
+        return groupTasks;
     }
+
+//    // deleting group
+//    public boolean deleteGroupByID(int groupID)
+//    {
+//        try
+//        {
+//            groupRepository.deleteGroupByID(groupID);
+//            return true;
+//        } catch (Exception e)
+//        {
+//            // if there is an issue, we didn't remove the group
+//            return false;
+//        }
+//    }
 }

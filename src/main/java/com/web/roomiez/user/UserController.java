@@ -28,8 +28,8 @@ public class UserController {
     @Autowired
     private ConfirmationTokenService confirmationTokenService;
 
-//    @Autowired
-//    private TaskService taskService;
+    @Autowired
+    private TaskService taskService;
 
     //We want to see the main tasks for a particular user
     @GetMapping("/{userID}")

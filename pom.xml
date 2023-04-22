@@ -16,8 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-	<!--  Using libraries-bom to manage versions.
-See https://github.com/GoogleCloudPlatform/cloud-opensource-java/wiki/The-Google-Cloud-Platform-Libraries-BOM -->
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -29,6 +28,7 @@ See https://github.com/GoogleCloudPlatform/cloud-opensource-java/wiki/The-Google
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -92,10 +92,17 @@ See https://github.com/GoogleCloudPlatform/cloud-opensource-java/wiki/The-Google
 			<artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
 			<version>1.1.4.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson2</artifactId>
+			<version>1.43.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>1.32.1</version>
+		</dependency>
 	</dependencies>
-
-
 
 	<build>
 		<plugins>
@@ -139,4 +146,16 @@ See https://github.com/GoogleCloudPlatform/cloud-opensource-java/wiki/The-Google
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<spring.profiles.active>
+					prod
+				</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>

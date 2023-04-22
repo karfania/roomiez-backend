@@ -1,5 +1,7 @@
 package com.web.roomiez.Task;
 
+import com.web.roomiez.group.Group;
+import com.web.roomiez.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -30,9 +32,19 @@ public class TaskService {
         }
     }
 
-    public void createTask(int ID, int assigneeID, String assigneeName, int groupID, String name, String startDate, String endDate, String startTime, String endTime,
-                           int progress, String description){
-        Task task = new Task(ID, assigneeID, assigneeName, groupID, name, startDate, endDate, startTime, endTime, progress, description);
+    public List<Task> getTasksForUser(int userID) throws NotFoundException
+    {
+        List<Task> userTasks = taskRepository.findByUser_ID(userID);
+        if (userTasks == null)
+        {
+            throw new NotFoundException();
+        }
+        return userTasks;
+    }
+
+    public void createTask(int ID, User assignee, Group group, String name, String startDate, String endDate, String startTime, String endTime,
+                           int progress, String description, String repeatTasks){
+        Task task = new Task(ID, assignee, group, name, startDate, endDate, startTime, endTime, progress, description, repeatTasks);
         taskRepository.save(task);
     }
 

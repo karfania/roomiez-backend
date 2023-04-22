@@ -1,5 +1,6 @@
 package com.web.roomiez.user;
 
+import com.web.roomiez.group.Group;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
