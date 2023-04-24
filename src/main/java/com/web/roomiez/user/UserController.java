@@ -92,7 +92,6 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-
     //Prints all users
     @GetMapping("/getAll")
     public List<User> getAllUsers(){

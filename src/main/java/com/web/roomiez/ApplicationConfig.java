@@ -78,7 +78,8 @@ public class ApplicationConfig {
                     "5:00pm",
                     0,
                     "This is a dummy task.",
-                    "weekly"
+                    "weekly",
+                    "arfania@usc.edu"
             );
 
 
@@ -93,7 +94,8 @@ public class ApplicationConfig {
                     "5:00pm",
                     1,
                     "This is a dummy task.",
-                    "weekly"
+                    "weekly",
+                    "arfania@usc.edu"
             );
 
 
@@ -108,7 +110,8 @@ public class ApplicationConfig {
                     "5:00pm",
                     0,
                     "This is a dummy task.",
-                    "weekly"
+                    "weekly",
+                    "chely@usc.edu"
             );
 
             Task t4 = new Task(
@@ -122,7 +125,8 @@ public class ApplicationConfig {
                     "5:00pm",
                     0,
                     "This is a dummy task.",
-                    "weekly"
+                    "weekly",
+                    "tyler@usc.edu"
             );
 
             taskRepository.saveAll(

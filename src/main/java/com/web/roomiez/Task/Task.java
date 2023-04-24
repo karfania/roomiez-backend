@@ -50,7 +50,7 @@ public class Task{
 
     // Constructor
     public Task(int taskID, User user, Group group, String name, String startDate, String endDate, String startTime, String endTime, int progress, String description,
-                String repeatTask) {
+                String repeatTask, String assigneeName) {
         this.taskID = taskID;
         this.user = user;
         this.group = group;
@@ -62,6 +62,7 @@ public class Task{
         this.progress = progress;
         this.description = description;
         this.repeatTask = repeatTask;
+        this.assigneeName = assigneeName;
     }
 
     // Getters and setters for data members
